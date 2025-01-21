@@ -8,14 +8,14 @@ This monorepo is structured using a modern, modular architecture that separates 
 
 ### Core Technologies
 
-- **Next.js**: Powers the web application and admin interface
-- **Expo**: Mobile application development
-- **PayloadCMS**: Headless CMS for content management
-- **tRPC**: End-to-end typesafe API layer with direct server access
-- **Turborepo**: Monorepo build system
-- **pnpm**: Package management
-- **AWS SQS**: Message queue for asynchronous processing
-- **Vercel**: Hosting and serverless functions
+- **[Next.js](https://nextjs.org/)**: Powers the web application and admin interface
+- **[Expo](https://expo.dev/)**: Mobile application development
+- **[PayloadCMS](https://payloadcms.com/)**: Headless CMS for content management
+- **[tRPC](https://trpc.io/)**: End-to-end typesafe API layer with direct server access
+- **[Turborepo](https://turbo.build/)**: Monorepo build system
+- **[pnpm](https://pnpm.io/)**: Package management
+- **[AWS SQS](https://aws.amazon.com/sqs/)**: Message queue for asynchronous processing
+- **[Vercel](https://vercel.com/)**: Hosting and serverless functions
 
 ### Directory Structure
 
@@ -391,3 +391,119 @@ This architecture ensures that while we benefit from tRPC's excellent developer 
 - Public API access
 - Legacy system compatibility
 - Alternative client implementations
+
+### Scaling Architecture
+
+This monorepo is designed to scale with multiple applications while maintaining code quality and developer experience.
+
+#### Multiple Applications Strategy
+
+The architecture supports expansion to multiple Next.js applications:
+
+```
+apps/
+├── web/               # Main web application
+├── admin/            # Admin dashboard
+├── marketing/        # Marketing site
+├── docs/            # Documentation
+└── [other-apps]/    # Additional applications
+```
+
+Key considerations for multi-app scaling:
+
+- Shared configuration management
+- Build performance optimization
+- Dependency management across apps
+- Infrastructure and deployment strategies
+- Development environment performance
+
+#### API Layer Scaling
+
+The API layer is designed to support multiple applications while maintaining type safety and code organization. Two potential approaches are supported:
+
+##### Unified API Approach (Current)
+
+```
+packages/
+└── api/                    # Single, unified API package
+    ├── src/
+    │   ├── routers/       # Organized by domain
+    │   │   ├── admin/
+    │   │   ├── marketing/
+    │   │   └── sales/
+    │   └── shared/        # Shared utilities, types
+    └── package.json
+```
+
+**Benefits:**
+
+- Single source of truth
+- Unified type system
+- Simplified dependency management
+- Easier code sharing
+- Centralized authentication/authorization
+
+**Challenges:**
+
+- Potential for increased complexity
+- Requires careful boundary management
+- Team coordination needs
+
+##### Domain-Separated APIs (Future Option)
+
+```
+packages/
+├── admin-api/             # Admin-specific API
+├── marketing-api/         # Marketing-specific API
+├── sales-api/            # Sales-specific API
+└── shared-api/           # Shared functionality
+```
+
+**Benefits:**
+
+- Clear domain boundaries
+- Team autonomy
+- Focused responsibilities
+- Granular versioning
+- Simplified testing
+
+**Challenges:**
+
+- Code duplication potential
+- More complex dependency graph
+- Cross-cutting concerns management
+
+The current architecture uses the Unified API approach but is structured to allow future separation into domain-specific APIs if needed. This provides flexibility while maintaining initial simplicity.
+
+#### Scaling Considerations
+
+When expanding the monorepo:
+
+1. **Performance**
+
+   - Build caching strategy
+   - Shared dependency optimization
+   - CI/CD pipeline efficiency
+
+2. **Team Organization**
+
+   - Code ownership rules
+   - Review processes
+   - Documentation requirements
+
+3. **Development Experience**
+
+   - Local development setup
+   - Hot reload performance
+   - IDE support
+
+4. **Infrastructure**
+
+   - Deployment strategies
+   - Environment management
+   - Resource sharing
+
+5. **Code Quality**
+   - Testing strategy
+   - Type safety
+   - Code sharing guidelines
