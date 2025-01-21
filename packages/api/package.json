@@ -22,6 +22,7 @@
     "@acme/auth": "workspace:*",
     "@acme/db": "workspace:*",
     "@acme/validators": "workspace:*",
+    "@aws-sdk/client-sqs": "^3.731.1",
     "@trpc/server": "catalog:",
     "superjson": "2.2.1",
     "zod": "catalog:"
