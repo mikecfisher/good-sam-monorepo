@@ -36,11 +36,20 @@ const NotificationPayloadSchema = z.object({
   priority: z.enum(["high", "normal", "low"]).default("normal"),
 });
 
-interface NotificationResponse {
+export interface NotificationResponse {
   success: boolean;
   messageId: string | null;
   timestamp?: string;
   error?: string;
+}
+
+export interface BatchNotificationResponse {
+  success: boolean;
+  results: {
+    status: "fulfilled" | "rejected";
+    messageId: string | null;
+    error: string | null;
+  }[];
 }
 
 export const notificationRouter = {
@@ -89,7 +98,7 @@ export const notificationRouter = {
 
   batchEnqueue: protectedProcedure
     .input(z.array(NotificationPayloadSchema).max(10))
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }): Promise<BatchNotificationResponse> => {
       const results = await Promise.allSettled(
         input.map(async (notification) => {
           const messageBody = {

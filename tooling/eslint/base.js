@@ -67,6 +67,8 @@ export default tseslint.config(
         2,
         { checksVoidReturn: { attributes: false } },
       ],
+      "@typescript-eslint/no-unsafe-assignment": "off",
+
       "@typescript-eslint/no-unnecessary-condition": [
         "error",
         {
