@@ -1,11 +1,9 @@
 "use client";
 
-import type { TRPCError } from "@trpc/server";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
-import type { RouterOutputs } from "@acme/api";
 import { Button } from "@acme/ui/button";
 import {
   Form,

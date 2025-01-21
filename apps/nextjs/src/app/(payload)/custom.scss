@@ -1,0 +1,8 @@
+// Add any custom styles for the admin interface here
+.admin-header {
+  @apply bg-background border-b border-border;
+}
+
+.admin-sidebar {
+  @apply bg-muted border-r border-border;
+} 
